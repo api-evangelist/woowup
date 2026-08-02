@@ -1,0 +1,61 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  https://woowup-docs.gitbook.io/woowup-developer-docs (API section pages mark
+  superseded endpoints as DEPRECATED) and
+  https://woowup-docs.gitbook.io/woowup-developer-docs/connection-security
+  (security change-notice policy). status.woowup.com exists as a hostname but
+  302-redirects to the app.woowup.com login page, so no public status page is
+  recorded.
+versioning:
+  scheme: uri-path
+  current: apiv3
+  base_url: https://api.woowup.com/apiv3
+  notes: >-
+    The API is versioned in the URL path (apiv3). Within v3 the docs deprecate
+    single-ID endpoints in favor of the multi-ID (multiusers) surface — see
+    the Multi-ID migration guide.
+  migration_guide: https://woowup-docs.gitbook.io/woowup-developer-docs/data-processing/migracion-a-multi-id
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: >-
+    No formal deprecation-policy page or Sunset/Deprecation (RFC 8594) header
+    support is published; deprecation is communicated inline in the endpoint
+    docs, which keep deprecated endpoints documented alongside their multi-ID
+    replacements.
+security_change_policy:
+  notice_period_days: 30
+  scope: TLS minimum-version raises and cipher-suite retirements
+  docs: https://woowup-docs.gitbook.io/woowup-developer-docs/connection-security
+sla: null
+status_page: null
+deprecated_operations:
+  - name: Find an user by service_uid
+    endpoint: GET /users/{service_uid}
+    replaced_by: GET /multiusers/find (multi-ID)
+    source: https://woowup-docs.gitbook.io/woowup-developer-docs/api/users
+  - name: User exist by ID
+    endpoint: GET /users/{id}/exist
+    replaced_by: GET /multiusers/exist (multi-search)
+    source: https://woowup-docs.gitbook.io/woowup-developer-docs/api/users
+  - name: Update an user (single-ID)
+    endpoint: PUT /users/{id}
+    replaced_by: multi-ID update via /multiusers
+    source: https://woowup-docs.gitbook.io/woowup-developer-docs/api/users
+  - name: Register a new user into loyalty club
+    endpoint: POST /users/register
+    replaced_by: POST /multiusers
+    source: https://woowup-docs.gitbook.io/woowup-developer-docs/api/users
+  - name: Create an user from newsletter
+    endpoint: POST /users/newsletter
+    replaced_by: POST /multiusers
+    source: https://woowup-docs.gitbook.io/woowup-developer-docs/api/users
+  - name: Add points by user ID
+    endpoint: POST /users/{id}/points
+    replaced_by: POST /multiusers/points
+    source: https://woowup-docs.gitbook.io/woowup-developer-docs/api/users
+  - name: List user's transactions by id
+    endpoint: GET /users/{id}/transactions
+    replaced_by: GET /multiusers/transactions
+    source: https://woowup-docs.gitbook.io/woowup-developer-docs/api/users

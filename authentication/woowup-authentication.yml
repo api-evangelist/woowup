@@ -1,0 +1,38 @@
+generated: '2026-07-21'
+method: searched
+docs: https://woowup-docs.gitbook.io/woowup-developer-docs/master#authentication
+source: >-
+  https://woowup-docs.gitbook.io/woowup-developer-docs/master (Getting Started,
+  Authentication section) and connection-security page. WoowUp publishes no
+  OpenAPI, so this profile is captured from the docs rather than derived from
+  securitySchemes.
+summary:
+  types: [apiKey]
+  api_key_in: [header, query]
+  oauth2_flows: []
+schemes:
+  - name: apikeyHeader
+    type: apiKey
+    in: header
+    parameter: Authorization
+    format: 'Authorization: Basic {apikey}'
+    recommended: true
+    notes: >-
+      The docs' recommended method sends the raw account API key after the
+      Basic keyword (not base64 user:pass). Rate-limiting code examples also
+      show 'Authorization: Bearer {api_token}' accepted.
+  - name: apikeyQuery
+    type: apiKey
+    in: query
+    parameter: apikey
+    format: '?apikey={apikey}'
+    recommended: false
+key_management:
+  issuance: Log into WoowUp and get the API key from the Configuration / My Account section (app.woowup.com).
+  revocation: >-
+    Requests from deleted accounts receive HTTP 410 Gone with code
+    account_deleted; a deactivated account's API key is permanently invalid.
+transport:
+  https_only: true
+  tls_minimum: '1.2'
+  docs: https://woowup-docs.gitbook.io/woowup-developer-docs/connection-security

@@ -1,0 +1,43 @@
+generated: '2026-07-21'
+method: searched
+source: https://packagist.org/search.json?q=woowup + https://github.com/woowup
+description: >-
+  First-party WoowUp client libraries and platform connectors, all PHP,
+  published on Packagist under the woowup vendor and developed in the
+  github.com/woowup organization. npm, PyPI, Maven Central, NuGet, RubyGems,
+  and crates.io were searched and hold no first-party WoowUp packages
+  (pypi.org/pypi/woowup returned 404; npm registry search returned no
+  woowup-owned results).
+packages:
+  - language: php
+    registry: packagist
+    name: woowup/woowup-php-client
+    url: https://packagist.org/packages/woowup/woowup-php-client
+    source: https://github.com/woowup/woowup-php-client
+    install: composer require woowup/woowup-php-client
+    official: true
+    notes: PHP library for the WoowUp REST API; includes the import_from_csv.php purchase-order example linked from the Getting Started docs.
+  - language: php
+    registry: packagist
+    name: woowup/woowup-php-client-v2
+    url: https://packagist.org/packages/woowup/woowup-php-client-v2
+    source: https://github.com/woowup/woowup-php-client-v2
+    install: composer require woowup/woowup-php-client-v2
+    official: true
+    notes: Second-generation PHP client for the WoowUp REST API.
+  - language: php
+    registry: packagist
+    name: woowup/vtex-woowup-connector
+    url: https://packagist.org/packages/woowup/vtex-woowup-connector
+    source: https://github.com/woowup/vtex-woowup-connector
+    install: composer require woowup/vtex-woowup-connector
+    official: true
+    notes: Connector that syncs VTEX stores with WoowUp.
+  - language: php
+    registry: packagist
+    name: woowup/magento-woowup-connector
+    url: https://packagist.org/packages/woowup/magento-woowup-connector
+    source: https://github.com/woowup/magento-woowup-connector
+    install: composer require woowup/magento-woowup-connector
+    official: true
+    notes: Connector that syncs Magento stores with WoowUp.

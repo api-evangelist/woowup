@@ -1,0 +1,49 @@
+generated: '2026-07-21'
+method: searched
+description: >-
+  Results of probing the /.well-known/ discovery surface for the WoowUp hosts
+  in apis.yml (www.woowup.com, api.woowup.com, docs.woowup.com). Status is the
+  HTTP code observed at fetch time. No host serves a real well-known document:
+  www.woowup.com (HubSpot) 404s after redirect; api.woowup.com 302-redirects
+  every path to the app.woowup.com login shell; docs.woowup.com (GitBook)
+  307-redirects into the GitBook space, which has no well-known surface. No
+  raw files were saved because no probe returned a genuine document.
+hosts:
+  - host: https://www.woowup.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+  - host: https://api.woowup.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 302
+        notes: redirects to the app.woowup.com login SPA, not a security.txt
+      - path: /.well-known/openid-configuration
+        status: 302
+      - path: /.well-known/oauth-authorization-server
+        status: 302
+      - path: /.well-known/api-catalog
+        status: 302
+      - path: /.well-known/ai-plugin.json
+        status: 302
+  - host: https://docs.woowup.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 307
+        notes: GitBook host redirect; no document served
+      - path: /.well-known/openid-configuration
+        status: 307
+      - path: /.well-known/oauth-authorization-server
+        status: 307
+      - path: /.well-known/api-catalog
+        status: 307
+      - path: /.well-known/ai-plugin.json
+        status: 307

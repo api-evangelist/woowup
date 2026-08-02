@@ -1,8 +1,26 @@
 aid: woowup
-name: Woowup
-description: Woowup is a company surfaced as a portfolio company of 500-global and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+name: WoowUp
+description: WoowUp is a customer marketing and loyalty CRM platform built for retail and
+  ecommerce brands across Latin America. Founded in Buenos Aires and backed by 500 Global,
+  WoowUp centralizes customer, purchase, and product data from POS and ecommerce platforms
+  (VTEX, Magento, Shopify, WooCommerce, PrestaShop, Tienda Nube) and activates it through
+  segmentation, campaigns, loyalty programs, web push notifications, and abandoned-cart
+  recovery. Its REST API v3 lets developers sync users (multi-ID), purchases, products,
+  coupons, benefits, points, and custom events, with client libraries published in PHP.
 url: https://raw.githubusercontent.com/api-evangelist/woowup/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://www.woowup.com/hubfs/Logo/favicon_.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
@@ -11,15 +29,93 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 12
+  pass: local-v1
 tags:
 - Company
-apis: []
+- CRM
+- Loyalty
+- Customer Data
+- Marketing Automation
+- Retail
+- eCommerce
+- Push Notifications
+apis:
+- name: WoowUp API v3
+  description: REST API for syncing customers (multi-ID), purchases, products, categories,
+    branches, coupons, benefits, points, user events, custom attributes, abandoned carts,
+    blacklists, segment exports, and integration stats into the WoowUp customer marketing
+    and loyalty platform. JSON-only requests and responses, API-key authentication, offset
+    pagination, and weighted sliding-window rate limiting (default 140 requests/minute).
+  humanURL: https://docs.woowup.com
+  baseURL: https://api.woowup.com/apiv3
+  tags:
+  - Users
+  - Purchases
+  - Products
+  - Loyalty
+  - Coupons
+  - Events
+  properties:
+  - type: Documentation
+    url: https://docs.woowup.com
+  - type: GettingStarted
+    url: https://woowup-docs.gitbook.io/woowup-developer-docs/master
+  - type: APIReference
+    url: https://woowup-docs.gitbook.io/woowup-developer-docs/api/users
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/woowup-domain-security.yml
 - type: Website
-  url: https://woowup.com
+  url: https://www.woowup.com
+- type: Blog
+  url: https://www.woowup.com/blog
+- type: Pricing
+  url: https://www.woowup.com/planes-y-precios
+- type: TermsOfService
+  url: https://www.woowup.com/legal/terms
+- type: PrivacyPolicy
+  url: https://www.woowup.com/legal/privacypolicy
+- type: Support
+  url: https://help.woowup.com/es/
+- type: Login
+  url: https://app.woowup.com/
+- type: GitHubOrganization
+  url: https://github.com/woowup
+- type: Documentation
+  url: https://docs.woowup.com
+- type: GettingStarted
+  url: https://woowup-docs.gitbook.io/woowup-developer-docs/master
+- type: LLMsTxt
+  url: llms/woowup-llms.txt
+- type: Packages
+  url: packages/woowup-packages.yml
+- type: SDKs
+  url: packages/woowup-packages.yml
+- type: WellKnown
+  url: well-known/woowup-well-known.yml
+- type: Conformance
+  url: conformance/woowup-conformance.yml
+- type: ErrorCatalog
+  url: errors/woowup-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/woowup-lifecycle.yml
+- type: Authentication
+  url: authentication/woowup-authentication.yml
+- type: Conventions
+  url: conventions/woowup-conventions.yml
+- type: RateLimits
+  url: rate-limits/woowup-rate-limits.yml
+- type: Components
+  url: components/woowup-components.yml
+- type: DataModel
+  url: data-model/woowup-data-model.yml

@@ -1,0 +1,38 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  https://woowup-docs.gitbook.io/woowup-developer-docs/web-tracking/web-tracking,
+  the push-notifications section, and
+  https://woowup-docs.gitbook.io/woowup-developer-docs/formularios-web/add-customers-from-newsletter.
+description: >-
+  WoowUp's client-side, embeddable scripts and form components — the browser
+  layer merchants drop into their ecommerce sites, distinct from the
+  server-side PHP clients in packages/woowup-packages.yml. Covers the web
+  tracking script, the web push notification scripts (custom/Magento, VTEX
+  Legacy, VTEX IO), and the newsletter signup HTML form / JS snippet.
+libraries:
+  - name: webtracking.min.js
+    url: https://assets-cdn.woowup.com/js/webtracking.min.js
+    purpose: Loader for the WoowUp web tracking script.
+families:
+  - family: Web tracking
+    docs: https://woowup-docs.gitbook.io/woowup-developer-docs/web-tracking/web-tracking
+    description: >-
+      Script connected to the merchant's ecommerce site to track which
+      products customers visit, feeding browse behavior into WoowUp
+      segmentation and campaigns.
+  - family: Web push notifications
+    docs:
+      - https://woowup-docs.gitbook.io/woowup-developer-docs/push-notifications/configuracion-notificaciones-web-push-en-magento-web-custom
+      - https://woowup-docs.gitbook.io/woowup-developer-docs/push-notifications/configuracion-push-en-vtex-legacy
+      - https://woowup-docs.gitbook.io/woowup-developer-docs/push-notifications/configuracion-push-en-vtex-io
+    description: >-
+      Push notification scripts installed per platform (Magento / web custom,
+      VTEX Legacy, VTEX IO) that enable sending web push campaigns from
+      WoowUp; includes a verification guide for confirming the setup.
+  - family: Newsletter signup forms
+    docs: https://woowup-docs.gitbook.io/woowup-developer-docs/formularios-web/add-customers-from-newsletter
+    description: >-
+      HTML form / jQuery snippet that registers newsletter subscribers
+      directly against the users API (api.woowup.com/apiv3/users and
+      events.woowup.com/events/users).

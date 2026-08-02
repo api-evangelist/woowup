@@ -1,0 +1,75 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  Captured from the WoowUp API v3 endpoint documentation
+  (woowup-docs.gitbook.io/woowup-developer-docs, API section: users, purchases,
+  products, categories, branches, coupons, benefits, events, custom
+  attributes, abandoned carts, blacklist, segment export). WoowUp publishes no
+  OpenAPI, so the graph reflects the documented resources and their
+  identifier references rather than schema $refs.
+docs: https://docs.woowup.com
+notation: >-
+  relationships use has_one / has_many / belongs_to with the referencing field
+  name; direction is from the entity that owns the reference.
+entities:
+  - name: User
+    domain: customers
+    description: A customer profile, identified by multi-ID (service_uid, email, document, telephone) with points, tags, and custom attributes.
+  - name: FamilyMember
+    domain: customers
+    description: A member linked to a user's family group (users/{id}/members).
+  - name: Purchase
+    domain: transactions
+    description: A purchase order with channel, branch, payment info, and embedded items.
+  - name: PurchaseItem
+    domain: transactions
+    description: A line item (sku, quantity, prices, product info) inside a purchase.
+  - name: Product
+    domain: catalog
+    description: A catalog product (sku, title, category, stock, price) synced via /products.
+  - name: Category
+    domain: catalog
+    description: A product category node synced via /categories.
+  - name: Branch
+    domain: catalog
+    description: A physical or online branch/store where purchases occur.
+  - name: Coupon
+    domain: incentives
+    description: A coupon code assignable to users (/coupons).
+  - name: Benefit
+    domain: incentives
+    description: A loyalty benefit assignable to users (/benefits, /benefits/{id}/assign).
+  - name: PointsTransaction
+    domain: loyalty
+    description: A points movement on a user's balance (/multiusers/points, /users/{id}/transactions).
+  - name: UserEvent
+    domain: engagement
+    description: A custom event recorded against a user (/user-events), e.g. warranty-extension triggers.
+  - name: AbandonedCart
+    domain: engagement
+    description: An abandoned cart uploaded for recovery campaigns (/multiusers/abandoned-cart).
+  - name: CustomAttribute
+    domain: schema
+    description: An account-defined attribute schema for users, products, purchases, or purchase items (/account/*-custom-attributes).
+  - name: Segment
+    domain: audiences
+    description: A saved audience; users can be tested for membership and segments exported (/export/segments/{id}).
+  - name: BlacklistEntry
+    domain: compliance
+    description: A contact suppression entry (/account/blacklist).
+relationships:
+  - {from: Purchase, to: User, type: belongs_to, via: service_uid}
+  - {from: Purchase, to: Branch, type: belongs_to, via: branch_name}
+  - {from: Purchase, to: PurchaseItem, type: has_many, via: purchase_detail}
+  - {from: PurchaseItem, to: Product, type: belongs_to, via: sku}
+  - {from: Product, to: Category, type: belongs_to, via: category}
+  - {from: User, to: FamilyMember, type: has_many, via: members}
+  - {from: User, to: PointsTransaction, type: has_many, via: transactions}
+  - {from: User, to: Coupon, type: has_many, via: coupon assignment}
+  - {from: User, to: Benefit, type: has_many, via: benefit assignment}
+  - {from: User, to: UserEvent, type: has_many, via: user_events}
+  - {from: User, to: AbandonedCart, type: has_many, via: abandoned carts}
+  - {from: User, to: Segment, type: has_many, via: belongsToSegment}
+  - {from: User, to: CustomAttribute, type: has_many, via: custom_attributes}
+  - {from: Purchase, to: CustomAttribute, type: has_many, via: purchase-custom-attributes}
+  - {from: Product, to: CustomAttribute, type: has_many, via: product-custom-attributes}

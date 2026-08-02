@@ -1,0 +1,41 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  Asserted from the WoowUp developer docs (Getting Started, connection-security)
+  and the live probes recorded in security/woowup-domain-security.yml. WoowUp
+  publishes no OpenAPI, no compliance/trust-center page, and no certification
+  claims were found on woowup.com.
+standards:
+  - id: https-only
+    conforms: true
+    evidence: connection-security docs — all API access is HTTPS on 443; plain HTTP is redirected; TLS 1.2+ required with ECDHE/AEAD suites only.
+  - id: tls-1-2-minimum
+    conforms: true
+    evidence: connection-security docs require TLS 1.2 or 1.3; probe observed TLSv1.2 on api.woowup.com and TLSv1.3 on www/docs hosts.
+  - id: http2
+    conforms: true
+    evidence: connection-security docs — HTTP/2 negotiated via ALPN, HTTP/1.1 supported.
+  - id: oauth2
+    conforms: false
+    evidence: authentication is a static account API key (Basic header or query param); no OAuth 2.0 flows documented.
+  - id: oidc
+    conforms: false
+    evidence: no OpenID Connect surface; /.well-known/openid-configuration absent on all hosts.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: errors use a custom {payload, message, code} JSON envelope, not application/problem+json.
+  - id: pagination
+    conforms: true
+    evidence: uniform offset pagination (limit max 100 default 25, page from 0) across all paginated endpoints.
+  - id: rate-limit-signaling
+    conforms: true
+    evidence: x-rate-limit-limit / x-rate-limit-remaining / x-rate-limit-reset on every response; Retry-After on 429.
+  - id: idempotency
+    conforms: false
+    evidence: no idempotency-key mechanism documented.
+  - id: iso8601-dates
+    conforms: true
+    evidence: accepted date formats are YYYY-mm-dd HH:mm:ss (UTC) or ISO 8601 with timezone.
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: /.well-known/security.txt absent on www, api, and docs hosts (see well-known/woowup-well-known.yml).

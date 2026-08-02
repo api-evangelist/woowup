@@ -1,0 +1,70 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  https://woowup-docs.gitbook.io/woowup-developer-docs/master (Getting Started:
+  basics, rate limiting, authentication, pagination, returned format, encoding)
+  and https://woowup-docs.gitbook.io/woowup-developer-docs/connection-security.
+description: >-
+  Cross-cutting request/response semantics of the WoowUp API v3: API-key
+  authentication, JSON-only serialization, offset pagination, base64+URL-safe
+  encoding of customer identifiers, UTC/ISO 8601 date handling, a uniform
+  payload/message/code response envelope, and weighted sliding-window rate
+  limiting signaled through x-rate-limit-* headers. WoowUp documents no
+  idempotency-key mechanism.
+
+base_url: https://api.woowup.com/apiv3
+api_style: REST over HTTPS, JSON requests and responses
+
+authentication:
+  scheme: 'API key via Authorization: Basic {apikey} header (recommended) or ?apikey= query parameter'
+  docs: https://woowup-docs.gitbook.io/woowup-developer-docs/master#authentication
+  detail: authentication/woowup-authentication.yml
+
+idempotency:
+  supported: false
+  notes: No idempotency-key header or replay-safety contract is documented.
+
+pagination:
+  style: offset
+  params:
+    - {name: limit, description: 'Items per page. Max: 100', default: 25}
+    - {name: page, description: 'Page number; first page is 0', default: 0}
+  docs: https://woowup-docs.gitbook.io/woowup-developer-docs/master#pagination
+
+serialization:
+  request_content_type: application/json
+  response_content_type: application/json
+  required_headers:
+    - 'Accept: application/json'
+  dates: 'YYYY-mm-dd HH:mm:ss (UTC default) or ISO 8601 with timezone, e.g. 2004-02-12T15:19:21+03:00'
+
+identifiers:
+  customer_key: service_uid
+  encoding: >-
+    When service_uid (usually the email or national ID) is used in a URL path
+    it must be base64-encoded and then URL-encoded, e.g.
+    urlencode(base64_encode('example@email.com')).
+  docs: https://woowup-docs.gitbook.io/woowup-developer-docs/master#how-to-encode-service_uid
+
+error_envelope:
+  shape: '{ "payload": [], "message": string, "code": string }'
+  detail: errors/woowup-problem-types.yml
+
+rate_limits:
+  default: 140 requests per minute per account (weighted 30-second sliding window)
+  headers: [x-rate-limit-limit, x-rate-limit-remaining, x-rate-limit-reset, Retry-After]
+  on_exceed: HTTP 429 with code too_many_request
+  detail: rate-limits/woowup-rate-limits.yml
+
+versioning:
+  scheme: uri-path
+  current: apiv3
+  detail: lifecycle/woowup-lifecycle.yml
+
+transport:
+  https_only: true
+  tls_minimum: '1.2'
+  http_versions: [HTTP/2, HTTP/1.1]
+  sni_required: true
+  certificate_pinning: prohibited (managed certs rotate; IPs change without notice)
+  docs: https://woowup-docs.gitbook.io/woowup-developer-docs/connection-security

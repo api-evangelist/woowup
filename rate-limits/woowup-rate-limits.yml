@@ -1,0 +1,41 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: WoowUp
+providerId: woowup
+generated: '2026-07-21'
+method: searched
+created: '2026-07-21'
+modified: '2026-07-21'
+tags:
+  - Rate Limiting
+  - CRM
+  - Loyalty
+description: >-
+  WoowUp API v3 limits requests per account using a weighted sliding window:
+  time is divided into 30-second segments and the current segment counts 100%
+  while the previous segment is weighted down by elapsed time
+  (weight = 1 - elapsed/30; estimated = previous*weight + current; >= limit
+  gives HTTP 429). The default limit is 140 requests per minute; higher limits
+  are arranged through the account manager or support.
+sources:
+  - https://woowup-docs.gitbook.io/woowup-developer-docs/master#rate-limiting
+limits:
+  - name: Default account limit
+    scope: account
+    limit_count: 140
+    window: 1 minute
+    algorithm: weighted sliding window (two 30-second segments)
+    on_exceed:
+      status: 429
+      body: '{"payload": [], "message": "too many request", "code": "too_many_request"}'
+      retry_after_header: true
+headers:
+  - name: x-rate-limit-limit
+    description: Maximum requests per window
+  - name: x-rate-limit-remaining
+    description: Remaining requests in the current window
+  - name: x-rate-limit-reset
+    description: Unix timestamp when the window resets
+  - name: Retry-After
+    description: Seconds to wait before retrying (sent with 429 responses)

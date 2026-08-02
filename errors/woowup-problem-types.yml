@@ -1,0 +1,66 @@
+generated: '2026-07-21'
+method: searched
+format: woowup-envelope
+source: >-
+  Captured from the response examples across the WoowUp developer docs
+  (woowup-docs.gitbook.io/woowup-developer-docs): Getting Started
+  (authentication, rate limiting) and the per-endpoint API pages (users,
+  purchases, products, coupons, events, branches, benefits). WoowUp publishes
+  no OpenAPI and does not use RFC 9457 application/problem+json.
+envelope:
+  media_type: application/json
+  shape: '{ "payload": array|object, "message": string, "code": string }'
+problems:
+  - status: 400
+    code: bad_request
+    title: Bad Request
+    meaning: Invalid parameters; the message field details what is wrong with the request or data sent.
+  - status: 400
+    code: invalid_email
+    title: Invalid email
+    meaning: The email supplied for the user is not valid.
+  - status: 400
+    code: client_error
+    title: Client error
+    meaning: Generic client-side validation failure.
+  - status: 403
+    code: forbidden
+    title: Forbidden
+    meaning: The API key is not authorized for the requested resource.
+  - status: 404
+    code: not_found
+    title: Not found
+    meaning: The requested resource does not exist.
+  - status: 404
+    code: user_not_found
+    title: User not found
+    meaning: No user matches the supplied id / service_uid / multi-ID search.
+  - status: 404
+    code: segment_not_found
+    title: Segment not found
+    meaning: The referenced segment id does not exist.
+  - status: 410
+    code: account_deleted
+    title: Account deleted
+    meaning: >-
+      The account has been deactivated; its API key is no longer valid and all
+      requests are rejected with 'gone: account deleted'.
+  - status: 429
+    code: too_many_request
+    title: Too many requests
+    meaning: >-
+      The per-account rate limit was exceeded (default 140 requests/minute,
+      weighted sliding window); retry after the number of seconds in the
+      Retry-After header.
+  - status: 500
+    code: internal_error
+    title: Internal error
+    meaning: Unexpected server-side error.
+  - status: 500
+    code: server_error
+    title: Server error
+    meaning: Unexpected server-side error (alternate code used by some endpoints).
+success_codes:
+  - status: 200
+    code: ok
+    meaning: Request succeeded; payload carries the result.
