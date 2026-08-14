@@ -29,11 +29,11 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-21'
+modified: '2026-08-13'
 x-enrichment:
-  date: '2026-07-21'
+  date: '2026-08-13'
   status: enriched
-  artifacts_added: 12
+  artifacts_added: 7
   pass: local-v1
 tags:
 - Company
@@ -45,6 +45,28 @@ tags:
 - eCommerce
 - Push Notifications
 apis:
+- name: WoowUp MCP Server
+  description: Hosted, remote Model Context Protocol server operated by WoowUp at
+    mcp.woowup.com. Streamable-HTTP transport, OAuth 2.1 bearer authentication with
+    RFC 8414 authorization-server and RFC 9728 protected-resource metadata, dynamic
+    client registration and PKCE S256. The protected-resource document advertises a
+    campaigns:read scope alongside the standard OIDC scopes. tools/list and initialize
+    return HTTP 401 without a token, so the live tool schemas require authenticated
+    introspection and are not recorded; no tool list is guessed. Found by probing —
+    WoowUp does not document this server.
+  humanURL: https://mcp.woowup.com/.well-known/oauth-protected-resource
+  baseURL: https://mcp.woowup.com/mcp
+  tags:
+  - MCP
+  - Agents
+  - OAuth
+  properties:
+  - type: MCPServer
+    url: mcp/woowup-mcp.yml
+  - type: OAuthScopes
+    url: scopes/woowup-scopes.yml
+  - type: Authentication
+    url: authentication/woowup-authentication.yml
 - name: WoowUp API v3
   description: REST API for syncing customers (multi-ID), purchases, products, categories,
     branches, coupons, benefits, points, user events, custom attributes, abandoned carts,
@@ -119,3 +141,11 @@ common:
   url: components/woowup-components.yml
 - type: DataModel
   url: data-model/woowup-data-model.yml
+- type: MCPServer
+  url: mcp/woowup-mcp.yml
+- type: OAuthScopes
+  url: scopes/woowup-scopes.yml
+- type: Plans
+  url: plans/woowup-plans-pricing.yml
+- type: APIReference
+  url: https://woowup-docs.gitbook.io/woowup-developer-docs/api/users
