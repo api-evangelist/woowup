@@ -1,0 +1,1 @@
+{"resource":"https://mcp.woowup.com/","authorization_servers":["https://mcp.woowup.com/"],"scopes_supported":["openid","profile","email","campaigns:read"],"bearer_methods_supported":["header"]}

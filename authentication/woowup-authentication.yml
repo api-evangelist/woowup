@@ -1,15 +1,21 @@
-generated: '2026-07-21'
+generated: '2026-08-13'
 method: searched
 docs: https://woowup-docs.gitbook.io/woowup-developer-docs/master#authentication
 source: >-
   https://woowup-docs.gitbook.io/woowup-developer-docs/master (Getting Started,
   Authentication section) and connection-security page. WoowUp publishes no
   OpenAPI, so this profile is captured from the docs rather than derived from
-  securitySchemes.
+  securitySchemes. The oauth2 scheme below was added 2026-08-13 from live
+  probes of https://mcp.woowup.com/.well-known/oauth-protected-resource and
+  /.well-known/oauth-authorization-server (both HTTP 200, saved verbatim under
+  well-known/).
 summary:
-  types: [apiKey]
+  types: [apiKey, oauth2]
   api_key_in: [header, query]
-  oauth2_flows: []
+  oauth2_flows: [authorizationCode, clientCredentials, deviceCode, implicit]
+  surfaces:
+    rest_api_v3: apiKey only — no OAuth, no scopes
+    mcp_server: oauth2 only — no API key accepted
 schemes:
   - name: apikeyHeader
     type: apiKey
@@ -27,6 +33,25 @@ schemes:
     parameter: apikey
     format: '?apikey={apikey}'
     recommended: false
+  - name: MCPOAuth2
+    type: oauth2
+    surface: https://mcp.woowup.com/mcp
+    in: header
+    parameter: Authorization
+    format: 'Authorization: Bearer {access_token}'
+    issuer: https://my-dev-instance-ap11e0.us1.zitadel.cloud
+    protected_resource_metadata: https://mcp.woowup.com/.well-known/oauth-protected-resource
+    authorization_server_metadata: https://mcp.woowup.com/.well-known/oauth-authorization-server
+    dynamic_client_registration: https://mcp.woowup.com/oauth/register
+    pkce: [S256]
+    scopes: [openid, profile, email, 'campaigns:read']
+    detail: scopes/woowup-scopes.yml
+    notes: >-
+      Applies to the hosted MCP server only, not to REST API v3. An
+      unauthenticated request returns HTTP 401 with an RFC 6750
+      WWW-Authenticate Bearer challenge naming the resource-metadata URL. This
+      OAuth surface is not mentioned anywhere in the WoowUp developer docs; it
+      was found by probing.
 key_management:
   issuance: Log into WoowUp and get the API key from the Configuration / My Account section (app.woowup.com).
   revocation: >-

@@ -61,6 +61,16 @@ versioning:
   current: apiv3
   detail: lifecycle/woowup-lifecycle.yml
 
+agent_surface:
+  mcp_endpoint: https://mcp.woowup.com/mcp
+  auth: OAuth 2.1 bearer (separate from the REST API key; the two do not interoperate)
+  detail: mcp/woowup-mcp.yml
+  notes: >-
+    Added 2026-08-13. The MCP server follows different conventions from REST
+    API v3 — bearer tokens instead of an API key, JSON-RPC over streamable HTTP
+    instead of REST, and RFC 8414/9728 discovery metadata that the REST surface
+    does not publish. It is undocumented on docs.woowup.com.
+
 transport:
   https_only: true
   tls_minimum: '1.2'

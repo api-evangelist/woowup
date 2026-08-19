@@ -1,0 +1,101 @@
+generated: '2026-08-13'
+method: probed
+status: published
+source: >-
+  Live probes of https://mcp.woowup.com/mcp (HTTP 401 with an RFC 6750
+  WWW-Authenticate Bearer challenge from a uvicorn server), its RFC 8414 and
+  RFC 9728 well-known metadata (both HTTP 200, saved verbatim under
+  well-known/), and https://docs.woowup.com/~gitbook/mcp (HTTP 200 MCP
+  initialize + tools/list, saved verbatim to woowup-docs-mcp-tools.json).
+description: >-
+  WoowUp operates two reachable MCP surfaces. The primary one is a first-party
+  hosted server at https://mcp.woowup.com/mcp — remote, streamable-HTTP,
+  OAuth 2.1-protected, and gated: tools/list and initialize both return
+  {"error": "invalid_token"} without a bearer token, so the live tool schemas
+  require authenticated introspection and are NOT recorded here. The second is
+  the GitBook-hosted documentation MCP exposed on WoowUp's own developer-docs
+  space at https://docs.woowup.com/~gitbook/mcp — anonymous, read-only, and its
+  three tools were enumerated live. WoowUp publishes no OpenAPI, so no
+  candidate tool list is derived from a spec and no tool crosswalk is emitted.
+
+deployment:
+  mode: remote
+  endpoint: https://mcp.woowup.com/mcp
+  auth: oauth
+  verified: probed
+
+servers:
+  - name: woowup-mcp
+    role: primary
+    transport: streamable-http
+    url: https://mcp.woowup.com/mcp
+    status: published
+    auth:
+      type: oauth2
+      protected_resource_metadata: https://mcp.woowup.com/.well-known/oauth-protected-resource
+      authorization_server_metadata: https://mcp.woowup.com/.well-known/oauth-authorization-server
+      issuer: https://my-dev-instance-ap11e0.us1.zitadel.cloud
+      dynamic_client_registration: https://mcp.woowup.com/oauth/register
+      bearer_methods: [header]
+      scopes: [openid, profile, email, 'campaigns:read']
+      detail: scopes/woowup-scopes.yml
+    tools_list:
+      accessible: false
+      http_status: 401
+      body: '{"error": "invalid_token", "error_description": "Authentication required"}'
+      notes: >-
+        Tool names and inputSchemas require an authenticated token. The only
+        published hint at capability is the campaigns:read scope in the
+        protected-resource metadata. No tool list is guessed or derived.
+    evidence:
+      - {url: 'https://mcp.woowup.com/mcp', method: 'POST tools/list', status: 401, server: uvicorn}
+      - {url: 'https://mcp.woowup.com/.well-known/oauth-protected-resource', status: 200}
+      - {url: 'https://mcp.woowup.com/.well-known/oauth-authorization-server', status: 200}
+
+  - name: woowup-docs-mcp
+    role: documentation
+    transport: streamable-http
+    url: https://docs.woowup.com/~gitbook/mcp
+    alternate_url: https://woowup-docs.gitbook.io/woowup-developer-docs/~gitbook/mcp
+    status: published
+    hosted_by: GitBook (server reports "mcp-typescript server on vercel" 0.1.0)
+    protocol_version: '2025-06-18'
+    auth:
+      type: none
+    tools_list:
+      accessible: true
+      http_status: 200
+      file: woowup-docs-mcp-tools.json
+    tools:
+      - name: searchDocumentation
+        description: >-
+          Search across the WoowUp Developer Docs to find relevant information,
+          code examples, API references, and guides.
+        input: {query: string}
+        read_only: true
+      - name: getPage
+        description: >-
+          Fetch the full markdown content of a specific WoowUp Developer Docs
+          page from its URL.
+        input: {url: string}
+        read_only: true
+      - name: sendFeedback
+        description: >-
+          Report a documentation issue (outdated, contradictory or missing
+          content) back to the WoowUp docs team.
+        input: {content: string, pageUrl: string, goal: string}
+        read_only: false
+    evidence:
+      - {url: 'https://docs.woowup.com/~gitbook/mcp', method: 'POST initialize', status: 200}
+      - {url: 'https://docs.woowup.com/~gitbook/mcp', method: 'POST tools/list', status: 200, tools: 3}
+
+notes: >-
+  mcp.woowup.com sits on a *.woowup.com DNS wildcard whose default backend
+  answers with the app.woowup.com single-page-app shell, so subdomain existence
+  alone proves nothing. This server is distinguishable from that catch-all: it
+  answers from uvicorn with application/json, a real RFC 6750 challenge naming
+  its own resource-metadata URL, 404s (not 302s) on unknown paths, and serves
+  two parseable OAuth metadata documents. The authorization server is a Zitadel
+  tenant named "my-dev-instance", which suggests the deployment is not yet
+  generally announced; no WoowUp documentation or public listing for this MCP
+  server was found.

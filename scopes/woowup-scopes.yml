@@ -1,0 +1,82 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  https://mcp.woowup.com/.well-known/oauth-protected-resource (RFC 9728) and
+  https://mcp.woowup.com/.well-known/oauth-authorization-server (RFC 8414),
+  both HTTP 200 and saved verbatim under well-known/. WoowUp publishes no
+  OpenAPI and no scopes/permissions reference page, so this is the complete
+  published scope surface — nothing is inferred.
+description: >-
+  The OAuth 2.1 surface WoowUp exposes belongs to its hosted MCP server at
+  mcp.woowup.com, not to the REST API v3. The REST API v3 authenticates with a
+  static account API key and has no scope model at all (see
+  authentication/woowup-authentication.yml). The authorization server is an
+  external Zitadel tenant; the resource server advertises one WoowUp-specific
+  scope, campaigns:read, alongside the standard OIDC scopes.
+resource:
+  identifier: https://mcp.woowup.com/
+  authorization_servers:
+    - https://mcp.woowup.com/
+  bearer_methods_supported: [header]
+schemes:
+  - name: MCPOAuth2
+    type: oauth2
+    source: https://mcp.woowup.com/.well-known/oauth-authorization-server
+    issuer: https://my-dev-instance-ap11e0.us1.zitadel.cloud
+    flows:
+      - flow: authorizationCode
+        authorizationUrl: https://my-dev-instance-ap11e0.us1.zitadel.cloud/oauth/v2/authorize
+        tokenUrl: https://mcp.woowup.com/oauth/token
+        pkce: [S256]
+      - flow: clientCredentials
+        tokenUrl: https://mcp.woowup.com/oauth/token
+      - flow: deviceCode
+        deviceAuthorizationUrl: https://my-dev-instance-ap11e0.us1.zitadel.cloud/oauth/v2/device_authorization
+      - flow: implicit
+        authorizationUrl: https://my-dev-instance-ap11e0.us1.zitadel.cloud/oauth/v2/authorize
+        notes: advertised in response_types_supported (id_token, "id_token token")
+    grant_types_supported:
+      - authorization_code
+      - implicit
+      - refresh_token
+      - client_credentials
+      - 'urn:ietf:params:oauth:grant-type:jwt-bearer'
+      - 'urn:ietf:params:oauth:grant-type:device_code'
+    token_endpoint_auth_methods_supported: [none, client_secret_basic, client_secret_post, private_key_jwt]
+    registration_endpoint: https://mcp.woowup.com/oauth/register
+    jwks_uri: https://mcp.woowup.com/oauth/jwks
+    introspection_endpoint: https://my-dev-instance-ap11e0.us1.zitadel.cloud/oauth/v2/introspect
+    revocation_endpoint: https://my-dev-instance-ap11e0.us1.zitadel.cloud/oauth/v2/revoke
+scopes:
+  - scope: 'campaigns:read'
+    description: >-
+      Read access to campaigns through the MCP server. The only
+      WoowUp-specific scope published; the tool set it unlocks is not
+      enumerable anonymously (tools/list returns 401).
+    surface: mcp
+    sources: ['https://mcp.woowup.com/.well-known/oauth-protected-resource']
+  - scope: openid
+    description: Standard OIDC scope — request an ID token for the authenticating user.
+    surface: mcp
+    sources: ['https://mcp.woowup.com/.well-known/oauth-protected-resource']
+  - scope: profile
+    description: Standard OIDC scope — basic profile claims (name, preferred_username, locale).
+    surface: mcp
+    sources: ['https://mcp.woowup.com/.well-known/oauth-protected-resource']
+  - scope: email
+    description: Standard OIDC scope — email and email_verified claims.
+    surface: mcp
+    sources: ['https://mcp.woowup.com/.well-known/oauth-protected-resource']
+authorization_server_scopes_supported:
+  - openid
+  - profile
+  - email
+  - phone
+  - address
+  - offline_access
+notes: >-
+  scopes_supported differs between the two metadata documents: the
+  authorization server (Zitadel) advertises the standard OIDC set plus
+  offline_access, while the protected resource advertises openid/profile/email
+  plus campaigns:read. The resource document is authoritative for what the MCP
+  server itself accepts.

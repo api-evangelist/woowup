@@ -1,0 +1,112 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.woowup.com/planes-y-precios
+description: >-
+  WoowUp publishes four named plan tiers on its pricing page, each defined by a
+  contact-database band and an included monthly email volume, but publishes only
+  one price: a "desde USD 700 / mes" floor that applies to the entry tier. Every
+  tier's final price is quoted by sales ("Solicitar una cotización
+  personalizada"), scaling with database size, send volume, active channels,
+  customization level, integrations and advanced features. SMS and WhatsApp
+  carry variable per-use costs on top, and initial technical setup is a separate
+  variable charge. Pricing is published in Spanish; quotas below are transcribed
+  verbatim from the page.
+currency: USD
+billing_period: monthly
+pricing_model: tiered by contact-database size and monthly send volume, sales-quoted
+plan_count: 4
+plans:
+  - name: PLAN ECOMMERCE
+    price: 700
+    price_qualifier: 'desde / starting from — the published floor price for WoowUp overall'
+    currency: USD
+    billing_period: monthly
+    quotas:
+      contacts: Up to 50,000 contacts
+      emails_included: 200,000 per month
+      digital_ads_segments: 5 (Meta and Google Sync)
+    included:
+      - Ecommerce platform integration
+      - Sales, browsing and behavior capture
+      - CDP
+      - Segmentation
+      - Web Push notifications
+      - 'Service: Help Desk'
+  - name: PLAN STANDARD
+    price: null
+    price_qualifier: quote only — no price published for this tier
+    currency: USD
+    billing_period: monthly
+    quotas:
+      contacts: 50,000 to 200,000 contacts
+      emails_included: 500,000 per month
+      digital_ads_segments: 10 (Meta and Google Sync)
+    included:
+      - Ecommerce platform integration
+      - ERP integration
+      - Sales, browsing and behavior capture
+      - CDP
+      - Segmentation
+      - Web Push notifications
+      - 'Service: Help Desk + Account Manager'
+  - name: PLAN BUSINESS
+    price: null
+    price_qualifier: quote only — no price published for this tier
+    currency: USD
+    billing_period: monthly
+    quotas:
+      contacts: 200,000 to 1,000,000 contacts
+      emails_included: 2,500,000 per month
+      digital_ads_segments: 10 (Meta and Google Sync)
+    included:
+      - Ecommerce platform integration
+      - ERP integration
+      - Sales, browsing and behavior capture
+      - CDP
+      - Segmentation
+      - Web Push notifications
+      - 'Service: Help Desk + Account Manager'
+  - name: PLAN CORPORATE
+    price: null
+    price_qualifier: quote only — no price published for this tier
+    currency: USD
+    billing_period: monthly
+    quotas:
+      contacts: Over 1,000,000 contacts
+      emails_included: 5,000,000 per month
+      digital_ads_segments: 15 (Meta and Google Sync)
+    included:
+      - Ecommerce platform integration
+      - ERP integration
+      - Sales, browsing and behavior capture
+      - CDP
+      - Segmentation
+      - Web Push notifications
+      - 'Service: Help Desk + Account Manager'
+overage:
+  documented: false
+  notes: >-
+    No per-contact or per-email overage rate is published. The page states the
+    price adjusts to the number of active contacts and that SMS/WhatsApp have
+    variable usage costs, without rates.
+api_access:
+  metered: false
+  notes: >-
+    No API-specific pricing, request quota or metering is published. API access
+    is part of the platform subscription; the only published API quota is the
+    140 requests/minute rate limit (rate-limits/woowup-rate-limits.yml).
+free_tier: false
+trial: not published
+signup: sales-assisted — the pricing page CTA is a personalized quote request, not self-serve checkout
+included_in_every_plan:
+  - Unified 360-degree customer profile with full purchase history
+  - Dynamic segmentation based on purchase behavior
+  - RFM analysis
+  - AI product recommendations
+  - Automations with triggers and advanced personalization
+  - Multichannel orchestration (Email, SMS, WhatsApp, Push, Meta/Google ad audiences)
+  - AI assistant for campaign creation
+  - Automatic customer-data cleaning, correction and normalization
+  - Profile enrichment
+  - Revenue, recurrence and LTV impact metrics
+  - Automatic integration and sync with online and offline data sources

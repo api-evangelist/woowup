@@ -1,0 +1,84 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://woowup-docs.gitbook.io/woowup-developer-docs/email-senders/email-connect-sendgrid,
+  .../email-senders/perfit-connect-account,
+  .../how-to-1/zendesk-connect-account, and
+  .../vtex/vtex-abandoned-cart-trigger — located by querying WoowUp's own
+  documentation MCP server (docs.woowup.com/~gitbook/mcp, searchDocumentation)
+  and reading each page.
+spec_type: none
+description: >-
+  WoowUp publishes no AsyncAPI document and no event-catalog page, and it does
+  NOT send outbound webhooks to customer systems — nothing in the developer
+  docs describes subscribing an endpoint to WoowUp events. What it does publish
+  is an INBOUND webhook ingestion surface: fixed receiver URLs on
+  api.woowup.com that a merchant configures inside third-party systems so those
+  systems push events into WoowUp. Those receivers are catalogued below because
+  they are real, documented, developer-facing integration endpoints, but they
+  are the mirror image of an event API.
+direction: inbound
+webhook_direction_note: >-
+  Deliberately NOT wired as a common[].type Webhooks pointer in apis.yml. The
+  scored webhooks_advertised / asyncapi_events signals describe a provider
+  emitting events to consumers; WoowUp only receives them. Emitting the pointer
+  would credit an outbound event surface that does not exist. Recording the
+  absence is the finding.
+outbound_events:
+  published: false
+  notes: >-
+    No subscription API, no event-type registry, no signing/verification
+    scheme, no retry policy, no delivery-log surface is documented. The nearest
+    thing to an egress event path is a campaign/journey trigger, which is
+    configured in the WoowUp app rather than through the API.
+inbound_receivers:
+  - name: SendGrid event webhook
+    url: https://api.woowup.com/webhooks/sendgrid
+    method: POST
+    query_params:
+      - {name: account, description: The merchant's WoowUp program/account name}
+    producer: SendGrid
+    events: >-
+      All Deliverability and Engagement events (the docs instruct SELECT ALL on
+      both columns of EVENTS TO BE POSTED).
+    purpose: Feed email delivery and engagement events back into WoowUp reporting.
+    docs: https://woowup-docs.gitbook.io/woowup-developer-docs/email-senders/email-connect-sendgrid
+  - name: Perfit event webhook
+    url: https://api.woowup.com/webhooks/perfit
+    method: POST
+    producer: Perfit
+    events: Perfit transactional-email events
+    purpose: Feed Perfit email events back into WoowUp when Perfit is the sending service.
+    docs: https://woowup-docs.gitbook.io/woowup-developer-docs/email-senders/perfit-connect-account
+  - name: Zendesk HTTP target
+    url: https://api.woowup.com/webhooks/zendesk
+    method: POST
+    query_params:
+      - {name: app_id, description: The WoowUp account id, e.g. app_id=1234}
+    producer: Zendesk Support (configured as an HTTP target/extension)
+    events: Ticket events routed by a Zendesk trigger to the WoowUp destination
+    purpose: Push support-ticket activity into the WoowUp customer profile.
+    docs: https://woowup-docs.gitbook.io/woowup-developer-docs/how-to-1/zendesk-connect-account
+platform_triggers:
+  - name: VTEX abandoned-cart trigger
+    producer: VTEX Dynamic Storage (DS) trigger on the Cliente entity
+    mechanism: >-
+      A scheduled VTEX trigger posts abandoned-cart data to WoowUp; configured
+      entirely in the VTEX admin, not through a WoowUp subscription API.
+    docs: https://woowup-docs.gitbook.io/woowup-developer-docs/vtex/vtex-abandoned-cart-trigger
+  - name: VTEX newsletter trigger
+    producer: VTEX Dynamic Storage trigger on the newsletter entity
+    docs: https://woowup-docs.gitbook.io/woowup-developer-docs/vtex/vtex-newsletter-trigger
+polling_alternatives:
+  - name: Integration Stats
+    endpoint: GET https://api.woowup.com/apiv3/integration-stats
+    notes: >-
+      Retrieve and upload data-synchronization stats — the documented way to
+      observe integration health in the absence of delivery callbacks.
+    docs: https://woowup-docs.gitbook.io/woowup-developer-docs/api/integration-stats
+  - name: User events
+    endpoint: POST/GET/DELETE https://api.woowup.com/apiv3/events
+    notes: >-
+      Custom events are WRITTEN into WoowUp to trigger campaigns (e.g. the
+      extended-warranty flow); they are not delivered outward.
+    docs: https://woowup-docs.gitbook.io/woowup-developer-docs/api/events

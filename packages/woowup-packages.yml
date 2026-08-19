@@ -1,13 +1,26 @@
-generated: '2026-07-21'
+generated: '2026-08-13'
 method: searched
-source: https://packagist.org/search.json?q=woowup + https://github.com/woowup
+source: >-
+  https://packagist.org/packages/<name>.json (Packagist metadata API, read
+  2026-08-13) + https://api.github.com/orgs/woowup/repos
 description: >-
   First-party WoowUp client libraries and platform connectors, all PHP,
   published on Packagist under the woowup vendor and developed in the
   github.com/woowup organization. npm, PyPI, Maven Central, NuGet, RubyGems,
-  and crates.io were searched and hold no first-party WoowUp packages
-  (pypi.org/pypi/woowup returned 404; npm registry search returned no
+  crates.io and pkg.go.dev were searched and hold no first-party WoowUp
+  packages (pypi.org/pypi/woowup returns 404; the npm registry returns no
   woowup-owned results).
+currency_note: >-
+  IMPORTANT — none of the four packages publishes a single SemVer tag. Packagist
+  lists only dev- branch pseudo-versions for every one of them, so `version` is
+  null throughout and `published` carries the date of the most recent branch
+  publication instead. A consumer running `composer require woowup/...` must
+  pin a branch (e.g. dev-master) and cannot express a version constraint; there
+  is no release, no changelog and no upgrade path. The two client libraries are
+  actively maintained (branches published 2026-08-07), the VTEX connector is
+  current (2026-07-21), and the Magento connector has not been touched since
+  2023-12-27 — a stale-SDK signal against a platform still documenting Magento
+  1 and Magento 2 onboarding.
 packages:
   - language: php
     registry: packagist
@@ -16,7 +29,16 @@ packages:
     source: https://github.com/woowup/woowup-php-client
     install: composer require woowup/woowup-php-client
     official: true
-    notes: PHP library for the WoowUp REST API; includes the import_from_csv.php purchase-order example linked from the Getting Started docs.
+    version: null
+    published: '2026-08-07'
+    latest_ref: dev-feat/tld-correction
+    tagged_releases: 0
+    downloads_total: 1219
+    note: >-
+      PHP library for the WoowUp REST API; includes the import_from_csv.php
+      purchase-order example linked from the Getting Started docs. version is
+      null because Packagist lists no tagged release — only dev- branches;
+      `published` is the timestamp of the newest branch publication.
   - language: php
     registry: packagist
     name: woowup/woowup-php-client-v2
@@ -24,7 +46,14 @@ packages:
     source: https://github.com/woowup/woowup-php-client-v2
     install: composer require woowup/woowup-php-client-v2
     official: true
-    notes: Second-generation PHP client for the WoowUp REST API.
+    version: null
+    published: '2026-08-07'
+    latest_ref: dev-feat/tld-correction
+    tagged_releases: 0
+    downloads_total: 1048
+    note: >-
+      Second-generation PHP client for the WoowUp REST API. No tagged release;
+      dev- branches only, newest published 2026-08-07.
   - language: php
     registry: packagist
     name: woowup/vtex-woowup-connector
@@ -32,7 +61,12 @@ packages:
     source: https://github.com/woowup/vtex-woowup-connector
     install: composer require woowup/vtex-woowup-connector
     official: true
-    notes: Connector that syncs VTEX stores with WoowUp.
+    version: null
+    published: '2026-07-21'
+    latest_ref: dev-master
+    tagged_releases: 0
+    downloads_total: 1232
+    note: Connector that syncs VTEX stores with WoowUp. No tagged release; dev-master only.
   - language: php
     registry: packagist
     name: woowup/magento-woowup-connector
@@ -40,4 +74,21 @@ packages:
     source: https://github.com/woowup/magento-woowup-connector
     install: composer require woowup/magento-woowup-connector
     official: true
-    notes: Connector that syncs Magento stores with WoowUp.
+    version: null
+    published: '2023-12-27'
+    latest_ref: dev-master
+    tagged_releases: 0
+    downloads_total: 959
+    note: >-
+      Connector that syncs Magento stores with WoowUp. No tagged release, and
+      no publication since 2023-12-27 — the oldest artifact in the WoowUp
+      package surface.
+registries_checked:
+  - {registry: packagist, result: '4 first-party packages'}
+  - {registry: npm, result: none}
+  - {registry: pypi, result: 'none (pypi.org/pypi/woowup 404)'}
+  - {registry: rubygems, result: none}
+  - {registry: crates.io, result: none}
+  - {registry: nuget, result: none}
+  - {registry: maven-central, result: none}
+  - {registry: pkg.go.dev, result: none}

@@ -1,14 +1,46 @@
-generated: '2026-07-21'
+generated: '2026-08-13'
 method: searched
 description: >-
-  Results of probing the /.well-known/ discovery surface for the WoowUp hosts
-  in apis.yml (www.woowup.com, api.woowup.com, docs.woowup.com). Status is the
-  HTTP code observed at fetch time. No host serves a real well-known document:
-  www.woowup.com (HubSpot) 404s after redirect; api.woowup.com 302-redirects
-  every path to the app.woowup.com login shell; docs.woowup.com (GitBook)
-  307-redirects into the GitBook space, which has no well-known surface. No
-  raw files were saved because no probe returned a genuine document.
+  Results of probing the /.well-known/ discovery surface for every WoowUp host
+  (www.woowup.com, api.woowup.com, docs.woowup.com, app.woowup.com,
+  mcp.woowup.com). Status is the HTTP code observed at fetch time. Two real
+  documents are served, both on mcp.woowup.com, the OAuth-protected hosted MCP
+  server: RFC 8414 authorization-server metadata and RFC 9728 protected-resource
+  metadata. Every other host returns a 404, a redirect into the app.woowup.com
+  login SPA, or a GitBook redirect — none serves a genuine document. Note that
+  *.woowup.com is a DNS wildcard whose default backend answers with the
+  app.woowup.com SPA, so an HTTP 200 from an arbitrary subdomain is not
+  evidence of a document; mcp.woowup.com is distinguishable because it answers
+  from a uvicorn server with real JSON and an RFC 6750 WWW-Authenticate
+  challenge rather than the SPA shell.
 hosts:
+  - host: https://mcp.woowup.com
+    documents:
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        file: woowup-oauth-authorization-server.json
+        notes: >-
+          RFC 8414. Issuer is a Zitadel tenant
+          (my-dev-instance-ap11e0.us1.zitadel.cloud); token, userinfo, jwks and
+          dynamic client registration endpoints are hosted on mcp.woowup.com.
+      - path: /.well-known/oauth-protected-resource
+        status: 200
+        file: woowup-oauth-protected-resource.json
+        notes: >-
+          RFC 9728. Declares resource https://mcp.woowup.com/ and
+          scopes_supported [openid, profile, email, campaigns:read].
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
   - host: https://www.woowup.com
     documents:
       - path: /.well-known/security.txt
@@ -21,29 +53,55 @@ hosts:
         status: 404
       - path: /.well-known/ai-plugin.json
         status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
   - host: https://api.woowup.com
     documents:
       - path: /.well-known/security.txt
-        status: 302
-        notes: redirects to the app.woowup.com login SPA, not a security.txt
+        status: 200
+        notes: >-
+          Soft 200 — the host serves the app.woowup.com login SPA HTML shell for
+          every unmatched path, including every /.well-known/* path. Not a
+          document.
       - path: /.well-known/openid-configuration
-        status: 302
+        status: 200
+        notes: soft 200, SPA HTML shell
       - path: /.well-known/oauth-authorization-server
-        status: 302
+        status: 200
+        notes: soft 200, SPA HTML shell
       - path: /.well-known/api-catalog
-        status: 302
+        status: 200
+        notes: soft 200, SPA HTML shell
       - path: /.well-known/ai-plugin.json
-        status: 302
+        status: 200
+        notes: soft 200, SPA HTML shell
+      - path: /.well-known/agent-card.json
+        status: 200
+        notes: soft 200, SPA HTML shell — rejected, not an AgentCard
+      - path: /.well-known/agent.json
+        status: 200
+        notes: soft 200, SPA HTML shell — rejected, not an AgentCard
   - host: https://docs.woowup.com
     documents:
       - path: /.well-known/security.txt
-        status: 307
-        notes: GitBook host redirect; no document served
+        status: 404
+        notes: GitBook-hosted space; no well-known surface
       - path: /.well-known/openid-configuration
-        status: 307
+        status: 404
       - path: /.well-known/oauth-authorization-server
-        status: 307
+        status: 404
       - path: /.well-known/api-catalog
-        status: 307
-      - path: /.well-known/ai-plugin.json
-        status: 307
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://app.woowup.com
+    documents:
+      - path: /.well-known/agent-card.json
+        status: 403
+        notes: S3-backed origin returns AccessDenied XML
+      - path: /.well-known/agent.json
+        status: 403

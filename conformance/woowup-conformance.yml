@@ -1,10 +1,12 @@
-generated: '2026-07-21'
+generated: '2026-08-13'
 method: searched
 source: >-
-  Asserted from the WoowUp developer docs (Getting Started, connection-security)
-  and the live probes recorded in security/woowup-domain-security.yml. WoowUp
-  publishes no OpenAPI, no compliance/trust-center page, and no certification
-  claims were found on woowup.com.
+  Asserted from the WoowUp developer docs (Getting Started, connection-security),
+  the live probes recorded in security/woowup-domain-security.yml, and the
+  2026-08-13 probes of the hosted MCP server at mcp.woowup.com recorded in
+  mcp/woowup-mcp.yml + well-known/woowup-well-known.yml. WoowUp publishes no
+  OpenAPI, no compliance/trust-center page, and no certification claims were
+  found on woowup.com.
 standards:
   - id: https-only
     conforms: true
@@ -16,11 +18,60 @@ standards:
     conforms: true
     evidence: connection-security docs — HTTP/2 negotiated via ALPN, HTTP/1.1 supported.
   - id: oauth2
-    conforms: false
-    evidence: authentication is a static account API key (Basic header or query param); no OAuth 2.0 flows documented.
+    conforms: partial
+    evidence: >-
+      REST API v3 does not: authentication is a static account API key (Basic
+      header or query param) and no OAuth flows are documented. The hosted MCP
+      server at mcp.woowup.com does: it enforces OAuth 2.1 bearer tokens and
+      returns an RFC 6750 WWW-Authenticate challenge on 401.
+  - id: rfc8414-oauth-authorization-server-metadata
+    conforms: true
+    evidence: >-
+      https://mcp.woowup.com/.well-known/oauth-authorization-server returns 200
+      with complete AS metadata (saved to well-known/).
+  - id: rfc9728-oauth-protected-resource-metadata
+    conforms: true
+    evidence: >-
+      https://mcp.woowup.com/.well-known/oauth-protected-resource returns 200
+      declaring the resource, authorization servers and scopes_supported.
+  - id: rfc7591-dynamic-client-registration
+    conforms: true
+    evidence: AS metadata advertises registration_endpoint https://mcp.woowup.com/oauth/register.
+  - id: pkce-s256
+    conforms: true
+    evidence: code_challenge_methods_supported is ["S256"] in the AS metadata.
+  - id: mcp
+    conforms: true
+    evidence: >-
+      Two reachable MCP servers — mcp.woowup.com/mcp (first-party, OAuth-gated,
+      401 on tools/list) and docs.woowup.com/~gitbook/mcp (GitBook-hosted docs
+      MCP, protocol 2025-06-18, 3 tools enumerated anonymously). See
+      mcp/woowup-mcp.yml.
   - id: oidc
+    conforms: partial
+    evidence: >-
+      No OIDC surface on the product hosts; /.well-known/openid-configuration
+      404s everywhere including mcp.woowup.com. The MCP authorization server is
+      an external Zitadel tenant issuing OIDC id_tokens, and openid/profile/email
+      are advertised as supported scopes.
+  - id: a2a-agent-card
     conforms: false
-    evidence: no OpenID Connect surface; /.well-known/openid-configuration absent on all hosts.
+    evidence: >-
+      /.well-known/agent-card.json and /.well-known/agent.json probed on www,
+      api, docs, app and mcp hosts — 404, 403, or a soft-200 SPA HTML shell. No
+      agent card is served.
+  - id: asyncapi
+    conforms: false
+    evidence: >-
+      No AsyncAPI document and no outbound webhook/event surface; only inbound
+      webhook receivers (see asyncapi/woowup-webhooks.yml).
+  - id: openapi
+    conforms: false
+    evidence: >-
+      No OpenAPI/Swagger document. /openapi.json, /openapi.yaml, /swagger.json,
+      /api-docs, /docs, /redoc probed on api.woowup.com (all soft-200 SPA
+      shells), docs.woowup.com (404) and www.woowup.com (404); the GitHub org
+      holds no spec.
   - id: rfc9457-problem-details
     conforms: false
     evidence: errors use a custom {payload, message, code} JSON envelope, not application/problem+json.
