@@ -42,6 +42,15 @@ tags:
 - Customer Data
 - Marketing Automation
 - Retail
+- E-Commerce
+- Push Notifications
+tags_raw:
+- Company
+- CRM
+- Loyalty
+- Customer Data
+- Marketing Automation
+- Retail
 - eCommerce
 - Push Notifications
 apis:
@@ -57,6 +66,10 @@ apis:
   humanURL: https://mcp.woowup.com/.well-known/oauth-protected-resource
   baseURL: https://mcp.woowup.com/mcp
   tags:
+  - MCP
+  - Agents
+  - Authentication
+  tags_raw:
   - MCP
   - Agents
   - OAuth
@@ -76,6 +89,13 @@ apis:
   humanURL: https://docs.woowup.com
   baseURL: https://api.woowup.com/apiv3
   tags:
+  - User
+  - Purchases
+  - Product
+  - Loyalty
+  - Coupons
+  - Event
+  tags_raw:
   - Users
   - Purchases
   - Products
