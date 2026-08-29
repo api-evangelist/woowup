@@ -8,6 +8,17 @@ description: WoowUp is a customer marketing and loyalty CRM platform built for r
   recovery. Its REST API v3 lets developers sync users (multi-ID), purchases, products,
   coupons, benefits, points, and custom events, with client libraries published in PHP.
 url: https://raw.githubusercontent.com/api-evangelist/woowup/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
