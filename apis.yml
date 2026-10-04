@@ -55,6 +55,7 @@ tags:
 - Retail
 - E-Commerce
 - Push Notifications
+- Loyalty & Incentives
 tags_raw:
 - Company
 - CRM
@@ -64,6 +65,7 @@ tags_raw:
 - Retail
 - eCommerce
 - Push Notifications
+- Loyalty & Incentives
 apis:
 - name: WoowUp MCP Server
   description: Hosted, remote Model Context Protocol server operated by WoowUp at
