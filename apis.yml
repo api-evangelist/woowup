@@ -40,7 +40,7 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.23'
 created: '2026-07-17'
-modified: '2026-08-13'
+modified: '2026-10-06'
 x-enrichment:
   date: '2026-08-13'
   status: enriched
@@ -128,6 +128,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- url: https://www.woowup.com/blog/rss.xml
+  type: BlogRSS
 - type: DomainSecurity
   url: security/woowup-domain-security.yml
 - type: Website
