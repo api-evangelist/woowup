@@ -106,3 +106,21 @@ notes: 'mcp.woowup.com sits on a *.woowup.com DNS wildcard whose default backend
   documents. The authorization server is a Zitadel tenant named "my-dev-instance", which suggests the
   deployment is not yet generally announced; no WoowUp documentation or public listing for this MCP server
   was found.'
+rfc9728:
+  endpoint: https://mcp.woowup.com/mcp
+  metadata_url: https://mcp.woowup.com/.well-known/oauth-protected-resource
+  discovered_via: WWW-Authenticate resource_metadata on an anonymous POST initialize
+  fetched: '2026-09-25'
+  http_status: 200
+  content_type: application/json
+  document:
+    resource: https://mcp.woowup.com/
+    authorization_servers:
+    - https://mcp.woowup.com/
+    scopes_supported:
+    - openid
+    - profile
+    - email
+    - campaigns:read
+    bearer_methods_supported:
+    - header
