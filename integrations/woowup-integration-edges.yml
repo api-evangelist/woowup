@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/woowup/integrations
+- https://n8n.io/integrations/woowup/
+- https://composio.dev/toolkits/woowup
+- https://monid.ai/tools/woowup
+checked:
+- https://composio.dev/toolkits/woowup
+- https://monid.ai/tools/woowup
+- https://n8n.io/integrations/woowup/
+- https://zapier.com/apps/woowup/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
