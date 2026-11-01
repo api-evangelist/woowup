@@ -1,4 +1,4 @@
-# Woowup
+# WoowUp
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,6 +64,126 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Woowup is a company surfaced as a portfolio company of 500-global and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+WoowUp is a customer marketing and loyalty CRM platform built for retail and ecommerce brands across Latin America. Founded in Buenos Aires and backed by 500 Global, WoowUp centralizes customer, purchase, and product data from POS and ecommerce platforms (VTEX, Magento, Shopify, WooCommerce, PrestaShop, Tienda Nube) and activates it through segmentation, campaigns, loyalty programs, web push notifications, and abandoned-cart recovery. Its REST API v3 lets developers sync users (multi-ID), purchases, products, coupons, benefits, points, and custom events, with client libraries published in PHP.
 
-Backed by: 500-global — https://woowup.com
+**Areas:** Company · CRM · Loyalty · Customer Data · Marketing Automation · Retail · E-Commerce · Push Notifications · Loyalty & Incentives
+
+## WoowUp on APIs.io
+
+Everything profiled for WoowUp is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/woowup/](https://apis.io/providers/woowup/)** — or go straight to one of the APIs or properties below.
+
+### APIs (2)
+
+- [WoowUp MCP Server](https://apis.io/apis/woowup/woowup-mcp-server/) — Hosted, remote Model Context Protocol server operated by WoowUp at mcp.woowup.com. Streamable-HTTP transport, OAuth 2.1 bearer authentication with RFC 8414…
+- [WoowUp API v3](https://apis.io/apis/woowup/woowup-api-v3/) — REST API for syncing customers (multi-ID), purchases, products, categories, branches, coupons, benefits, points, user events, custom attributes, abandoned…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Woowup Webhooks](https://apis.io/asyncapis/woowup/woowup-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [woowup-mcp.yml](https://apis.io/servers/woowup/woowup-mcp-yml/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Woowup Authentication](https://apis.io/security/woowup/woowup-authentication/)
+- [Woowup Domain Security](https://apis.io/security/woowup/woowup-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Woowup Scopes](https://apis.io/scopes/woowup/woowup-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Woowup Plans Pricing](https://apis.io/plans/woowup/woowup-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Woowup Rate Limits](https://apis.io/rate-limits/woowup/woowup-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.woowup.com)
+- [Documentation](https://docs.woowup.com)
+- [Getting started](https://woowup-docs.gitbook.io/woowup-developer-docs/master)
+- [API reference](https://woowup-docs.gitbook.io/woowup-developer-docs/api/users)
+- [Pricing](https://www.woowup.com/planes-y-precios)
+- [Support](https://help.woowup.com/es/)
+- [Blog](https://www.woowup.com/blog)
+- [Terms of service](https://www.woowup.com/legal/terms)
+- [Privacy policy](https://www.woowup.com/legal/privacypolicy)
+- [GitHub](https://github.com/woowup)
+
+## API Evangelist rating
+
+**Kin Score 50.3** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 39.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 23.7 |
+| Developer ergonomics | 54.8 |
+| Access clarity | 69.7 |
+
+**Agent readiness 52.9** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | — |
+| Well Known Catalog | yes |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 34.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/woowup/](https://apis.io/providers/woowup/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for WoowUp: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/woowup/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
